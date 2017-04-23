@@ -1,0 +1,604 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="Usuarios" EntityType="Model.Store.Usuarios" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Tarefas" EntityType="Model.Store.Tarefas" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Competencias" EntityType="Model.Store.Competencias" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Avaliacaos" EntityType="Model.Store.Avaliacaos" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Projetoes" EntityType="Model.Store.Projetoes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Avaliacaos_AvalTarefa" EntityType="Model.Store.Avaliacaos_AvalTarefa" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Usuarios_Analista" EntityType="Model.Store.Usuarios_Analista" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Avaliacaos_AvalAnalista" EntityType="Model.Store.Avaliacaos_AvalAnalista" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Usuarios_Gerente" EntityType="Model.Store.Usuarios_Gerente" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Usuarios_Administrador" EntityType="Model.Store.Usuarios_Administrador" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="TarefaCompetencia" Association="Model.Store.TarefaCompetencia">
+      <End Role="Tarefa" EntitySet="Tarefas" />
+      <End Role="Competencia" EntitySet="Competencias" />
+    </AssociationSet>
+    <AssociationSet Name="TarefaAvalTarefa" Association="Model.Store.TarefaAvalTarefa">
+      <End Role="Tarefa" EntitySet="Tarefas" />
+      <End Role="AvalTarefa" EntitySet="Avaliacaos_AvalTarefa" />
+    </AssociationSet>
+    <AssociationSet Name="AnalistaCompetencia" Association="Model.Store.AnalistaCompetencia">
+      <End Role="Analista" EntitySet="Usuarios_Analista" />
+      <End Role="Competencia" EntitySet="Competencias" />
+    </AssociationSet>
+    <AssociationSet Name="AnalistaAvalAnalista" Association="Model.Store.AnalistaAvalAnalista">
+      <End Role="Analista" EntitySet="Usuarios_Analista" />
+      <End Role="AvalAnalista" EntitySet="Avaliacaos_AvalAnalista" />
+    </AssociationSet>
+    <AssociationSet Name="ProjetoTarefa" Association="Model.Store.ProjetoTarefa">
+      <End Role="Projeto" EntitySet="Projetoes" />
+      <End Role="Tarefa" EntitySet="Tarefas" />
+    </AssociationSet>
+    <AssociationSet Name="Gerente1Projeto" Association="Model.Store.Gerente1Projeto">
+      <End Role="Gerente1" EntitySet="Usuarios_Gerente" />
+      <End Role="Projeto" EntitySet="Projetoes" />
+    </AssociationSet>
+    <AssociationSet Name="Gerente1AvalAnalista" Association="Model.Store.Gerente1AvalAnalista">
+      <End Role="Gerente1" EntitySet="Usuarios_Gerente" />
+      <End Role="AvalAnalista" EntitySet="Avaliacaos_AvalAnalista" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AvalTarefa_inherits_Avaliacao" Association="Model.Store.FK_AvalTarefa_inherits_Avaliacao">
+      <End Role="Avaliacao" EntitySet="Avaliacaos" />
+      <End Role="AvalTarefa" EntitySet="Avaliacaos_AvalTarefa" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Analista_inherits_Usuario" Association="Model.Store.FK_Analista_inherits_Usuario">
+      <End Role="Usuario" EntitySet="Usuarios" />
+      <End Role="Analista" EntitySet="Usuarios_Analista" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AvalAnalista_inherits_Avaliacao" Association="Model.Store.FK_AvalAnalista_inherits_Avaliacao">
+      <End Role="Avaliacao" EntitySet="Avaliacaos" />
+      <End Role="AvalAnalista" EntitySet="Avaliacaos_AvalAnalista" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Gerente_inherits_Usuario" Association="Model.Store.FK_Gerente_inherits_Usuario">
+      <End Role="Usuario" EntitySet="Usuarios" />
+      <End Role="Gerente" EntitySet="Usuarios_Gerente" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Administrador_inherits_Usuario" Association="Model.Store.FK_Administrador_inherits_Usuario">
+      <End Role="Usuario" EntitySet="Usuarios" />
+      <End Role="Administrador" EntitySet="Usuarios_Administrador" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nome" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Username" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Celular" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Senha" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Tarefas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Titulo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DataInicio" Type="datetime" Nullable="false" />
+    <Property Name="DataFim" Type="datetime" Nullable="false" />
+    <Property Name="Descricao" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Projeto_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Competencias">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Titulo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Tempo" Type="smallint" Nullable="false" />
+    <Property Name="Tarefa_Id" Type="int" Nullable="true" />
+    <Property Name="Analista_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Avaliacaos">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Texto" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Projetoes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Titulo" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DataInicio" Type="datetime" Nullable="false" />
+    <Property Name="DataFim" Type="datetime" Nullable="false" />
+    <Property Name="Descricao" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Gerente1_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Avaliacaos_AvalTarefa">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Tarefa_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuarios_Analista">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Avaliacaos_AvalAnalista">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Analista_Id" Type="int" Nullable="false" />
+    <Property Name="Gerente1_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuarios_Gerente">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuarios_Administrador">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="TarefaCompetencia">
+    <End Role="Tarefa" Type="Model.Store.Tarefas" Multiplicity="0..1" />
+    <End Role="Competencia" Type="Model.Store.Competencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tarefa">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Competencia">
+        <PropertyRef Name="Tarefa_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="TarefaAvalTarefa">
+    <End Role="Tarefa" Type="Model.Store.Tarefas" Multiplicity="1" />
+    <End Role="AvalTarefa" Type="Model.Store.Avaliacaos_AvalTarefa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tarefa">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AvalTarefa">
+        <PropertyRef Name="Tarefa_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AnalistaCompetencia">
+    <End Role="Analista" Type="Model.Store.Usuarios_Analista" Multiplicity="0..1" />
+    <End Role="Competencia" Type="Model.Store.Competencias" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Analista">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Competencia">
+        <PropertyRef Name="Analista_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AnalistaAvalAnalista">
+    <End Role="Analista" Type="Model.Store.Usuarios_Analista" Multiplicity="1" />
+    <End Role="AvalAnalista" Type="Model.Store.Avaliacaos_AvalAnalista" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Analista">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AvalAnalista">
+        <PropertyRef Name="Analista_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProjetoTarefa">
+    <End Role="Projeto" Type="Model.Store.Projetoes" Multiplicity="1" />
+    <End Role="Tarefa" Type="Model.Store.Tarefas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projeto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Tarefa">
+        <PropertyRef Name="Projeto_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Gerente1Projeto">
+    <End Role="Gerente1" Type="Model.Store.Usuarios_Gerente" Multiplicity="1" />
+    <End Role="Projeto" Type="Model.Store.Projetoes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gerente1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Projeto">
+        <PropertyRef Name="Gerente1_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="Gerente1AvalAnalista">
+    <End Role="Gerente1" Type="Model.Store.Usuarios_Gerente" Multiplicity="1" />
+    <End Role="AvalAnalista" Type="Model.Store.Avaliacaos_AvalAnalista" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Gerente1">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AvalAnalista">
+        <PropertyRef Name="Gerente1_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AvalTarefa_inherits_Avaliacao">
+    <End Role="Avaliacao" Type="Model.Store.Avaliacaos" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AvalTarefa" Type="Model.Store.Avaliacaos_AvalTarefa" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Avaliacao">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AvalTarefa">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Analista_inherits_Usuario">
+    <End Role="Usuario" Type="Model.Store.Usuarios" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Analista" Type="Model.Store.Usuarios_Analista" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Analista">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AvalAnalista_inherits_Avaliacao">
+    <End Role="Avaliacao" Type="Model.Store.Avaliacaos" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AvalAnalista" Type="Model.Store.Avaliacaos_AvalAnalista" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Avaliacao">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AvalAnalista">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Gerente_inherits_Usuario">
+    <End Role="Usuario" Type="Model.Store.Usuarios" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Gerente" Type="Model.Store.Usuarios_Gerente" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Gerente">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Administrador_inherits_Usuario">
+    <End Role="Usuario" Type="Model.Store.Usuarios" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Administrador" Type="Model.Store.Usuarios_Administrador" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Usuario">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Administrador">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Usuarios" EntityType="Model.Usuario" />
+          <EntitySet Name="Tarefas" EntityType="Model.Tarefa" />
+          <EntitySet Name="Competencias" EntityType="Model.Competencia" />
+          <EntitySet Name="Avaliacaos" EntityType="Model.Avaliacao" />
+          <AssociationSet Name="TarefaCompetencia" Association="Model.TarefaCompetencia">
+            <End EntitySet="Tarefas" Role="Tarefa" />
+            <End EntitySet="Competencias" Role="Competencia" />
+          </AssociationSet>
+          <AssociationSet Name="TarefaAvalTarefa" Association="Model.TarefaAvalTarefa">
+            <End EntitySet="Tarefas" Role="Tarefa" />
+            <End EntitySet="Avaliacaos" Role="AvalTarefa" />
+          </AssociationSet>
+          <AssociationSet Name="AnalistaCompetencia" Association="Model.AnalistaCompetencia">
+            <End EntitySet="Usuarios" Role="Analista" />
+            <End EntitySet="Competencias" Role="Competencia" />
+          </AssociationSet>
+          <AssociationSet Name="AnalistaAvalAnalista" Association="Model.AnalistaAvalAnalista">
+            <End EntitySet="Usuarios" Role="Analista" />
+            <End EntitySet="Avaliacaos" Role="AvalAnalista" />
+          </AssociationSet>
+          <EntitySet Name="Projetoes" EntityType="Model.Projeto" />
+          <AssociationSet Name="ProjetoTarefa" Association="Model.ProjetoTarefa">
+            <End EntitySet="Projetoes" Role="Projeto" />
+            <End EntitySet="Tarefas" Role="Tarefa" />
+          </AssociationSet>
+          <AssociationSet Name="Gerente1Projeto" Association="Model.Gerente1Projeto">
+            <End EntitySet="Usuarios" Role="Gerente1" />
+            <End EntitySet="Projetoes" Role="Projeto" />
+          </AssociationSet>
+          <AssociationSet Name="Gerente1AvalAnalista" Association="Model.Gerente1AvalAnalista">
+            <End EntitySet="Usuarios" Role="Gerente1" />
+            <End EntitySet="Avaliacaos" Role="AvalAnalista" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="Usuario" Abstract="true">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="Nome" Nullable="false" Type="String" />
+          <Property Name="Username" Nullable="false" Type="String" />
+          <Property Name="Email" Nullable="false" Type="String" />
+          <Property Name="Celular" Nullable="false" Type="String" />
+          <Property Name="Senha" Nullable="false" Type="String" />
+        </EntityType>
+        <EntityType Name="Administrador" BaseType="Model.Usuario">
+        </EntityType>
+        <EntityType Name="Analista" BaseType="Model.Usuario">
+          <NavigationProperty Name="Competencias" Relationship="Model.AnalistaCompetencia" FromRole="Analista" ToRole="Competencia" />
+          <NavigationProperty Name="AvalAnalistas" Relationship="Model.AnalistaAvalAnalista" FromRole="Analista" ToRole="AvalAnalista" />
+        </EntityType>
+        <EntityType Name="Tarefa">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <NavigationProperty Name="Competencias" Relationship="Model.TarefaCompetencia" FromRole="Tarefa" ToRole="Competencia" />
+          <NavigationProperty Name="AvalTarefas" Relationship="Model.TarefaAvalTarefa" FromRole="Tarefa" ToRole="AvalTarefa" />
+          <Property Name="Titulo" Nullable="false" Type="String" />
+          <Property Name="DataInicio" Nullable="false" Type="DateTime" />
+          <Property Name="DataFim" Nullable="false" Type="DateTime" />
+          <Property Name="Descricao" Nullable="false" Type="String" />
+          <NavigationProperty Name="Projeto" Relationship="Model.ProjetoTarefa" FromRole="Tarefa" ToRole="Projeto" />
+        </EntityType>
+        <EntityType Name="Competencia">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <NavigationProperty Name="Tarefa" Relationship="Model.TarefaCompetencia" FromRole="Competencia" ToRole="Tarefa" />
+          <NavigationProperty Name="Analista" Relationship="Model.AnalistaCompetencia" FromRole="Competencia" ToRole="Analista" />
+          <Property Name="Titulo" Nullable="false" Type="String" />
+          <Property Name="Tempo" Nullable="false" Type="Int16" />
+        </EntityType>
+        <EntityType Name="Avaliacao" Abstract="true">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="Texto" Nullable="false" Type="String" />
+        </EntityType>
+        <EntityType Name="AvalTarefa" BaseType="Model.Avaliacao">
+          <NavigationProperty Name="Tarefa" Relationship="Model.TarefaAvalTarefa" FromRole="AvalTarefa" ToRole="Tarefa" />
+        </EntityType>
+        <Association Name="TarefaCompetencia">
+          <End Type="Model.Tarefa" Multiplicity="0..1" Role="Tarefa" />
+          <End Type="Model.Competencia" Multiplicity="*" Role="Competencia" />
+        </Association>
+        <EntityType Name="AvalAnalista" BaseType="Model.Avaliacao">
+          <NavigationProperty Name="Analista" Relationship="Model.AnalistaAvalAnalista" FromRole="AvalAnalista" ToRole="Analista" />
+          <NavigationProperty Name="Gerente1" Relationship="Model.Gerente1AvalAnalista" FromRole="AvalAnalista" ToRole="Gerente1" />
+        </EntityType>
+        <Association Name="TarefaAvalTarefa">
+          <End Type="Model.Tarefa" Multiplicity="1" Role="Tarefa" />
+          <End Type="Model.AvalTarefa" Multiplicity="*" Role="AvalTarefa" />
+        </Association>
+        <Association Name="AnalistaCompetencia">
+          <End Type="Model.Analista" Multiplicity="0..1" Role="Analista" />
+          <End Type="Model.Competencia" Multiplicity="*" Role="Competencia" />
+        </Association>
+        <Association Name="AnalistaAvalAnalista">
+          <End Type="Model.Analista" Multiplicity="1" Role="Analista" />
+          <End Type="Model.AvalAnalista" Multiplicity="*" Role="AvalAnalista" />
+        </Association>
+        <EntityType Name="Projeto">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="Titulo" Nullable="false" Type="String" />
+          <Property Name="DataInicio" Nullable="false" Type="DateTime" />
+          <Property Name="DataFim" Nullable="false" Type="DateTime" />
+          <Property Name="Descricao" Nullable="false" Type="String" />
+          <NavigationProperty Name="Tarefas" Relationship="Model.ProjetoTarefa" FromRole="Projeto" ToRole="Tarefa" />
+          <NavigationProperty Name="Gerente1" Relationship="Model.Gerente1Projeto" FromRole="Projeto" ToRole="Gerente1" />
+        </EntityType>
+        <Association Name="ProjetoTarefa">
+          <End Type="Model.Projeto" Multiplicity="1" Role="Projeto" />
+          <End Type="Model.Tarefa" Multiplicity="*" Role="Tarefa" />
+        </Association>
+        <EntityType Name="Gerente" BaseType="Model.Usuario">
+          <NavigationProperty Name="Projetoes" Relationship="Model.Gerente1Projeto" FromRole="Gerente1" ToRole="Projeto" />
+          <NavigationProperty Name="AvalAnalistas" Relationship="Model.Gerente1AvalAnalista" FromRole="Gerente1" ToRole="AvalAnalista" />
+        </EntityType>
+        <Association Name="Gerente1Projeto">
+          <End Type="Model.Gerente" Multiplicity="1" Role="Gerente1" />
+          <End Type="Model.Projeto" Multiplicity="*" Role="Projeto" />
+        </Association>
+        <Association Name="Gerente1AvalAnalista">
+          <End Type="Model.Gerente" Multiplicity="1" Role="Gerente1" />
+          <End Type="Model.AvalAnalista" Multiplicity="*" Role="AvalAnalista" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelContainer">
+    <EntitySetMapping Name="Usuarios">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Usuario)">
+        <MappingFragment StoreEntitySet="Usuarios">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nome" ColumnName="Nome" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Celular" ColumnName="Celular" />
+          <ScalarProperty Name="Senha" ColumnName="Senha" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Analista)">
+        <MappingFragment StoreEntitySet="Usuarios_Analista">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Gerente)">
+        <MappingFragment StoreEntitySet="Usuarios_Gerente">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Administrador)">
+        <MappingFragment StoreEntitySet="Usuarios_Administrador">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tarefas">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Tarefa)">
+        <MappingFragment StoreEntitySet="Tarefas">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+          <ScalarProperty Name="DataInicio" ColumnName="DataInicio" />
+          <ScalarProperty Name="DataFim" ColumnName="DataFim" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Competencias">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Competencia)">
+        <MappingFragment StoreEntitySet="Competencias">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+          <ScalarProperty Name="Tempo" ColumnName="Tempo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Avaliacaos">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Avaliacao)">
+        <MappingFragment StoreEntitySet="Avaliacaos">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Texto" ColumnName="Texto" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model.AvalTarefa)">
+        <MappingFragment StoreEntitySet="Avaliacaos_AvalTarefa">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(Model.AvalAnalista)">
+        <MappingFragment StoreEntitySet="Avaliacaos_AvalAnalista">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projetoes">
+      <EntityTypeMapping TypeName="IsTypeOf(Model.Projeto)">
+        <MappingFragment StoreEntitySet="Projetoes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Titulo" ColumnName="Titulo" />
+          <ScalarProperty Name="DataInicio" ColumnName="DataInicio" />
+          <ScalarProperty Name="DataFim" ColumnName="DataFim" />
+          <ScalarProperty Name="Descricao" ColumnName="Descricao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="TarefaCompetencia" TypeName="Model.TarefaCompetencia" StoreEntitySet="Competencias">
+      <EndProperty Name="Tarefa">
+        <ScalarProperty Name="Id" ColumnName="Tarefa_Id" />
+      </EndProperty>
+      <EndProperty Name="Competencia">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Tarefa_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TarefaAvalTarefa" TypeName="Model.TarefaAvalTarefa" StoreEntitySet="Avaliacaos_AvalTarefa">
+      <EndProperty Name="Tarefa">
+        <ScalarProperty Name="Id" ColumnName="Tarefa_Id" />
+      </EndProperty>
+      <EndProperty Name="AvalTarefa">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AnalistaCompetencia" TypeName="Model.AnalistaCompetencia" StoreEntitySet="Competencias">
+      <EndProperty Name="Analista">
+        <ScalarProperty Name="Id" ColumnName="Analista_Id" />
+      </EndProperty>
+      <EndProperty Name="Competencia">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+      <Condition ColumnName="Analista_Id" IsNull="false" />
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AnalistaAvalAnalista" TypeName="Model.AnalistaAvalAnalista" StoreEntitySet="Avaliacaos_AvalAnalista">
+      <EndProperty Name="Analista">
+        <ScalarProperty Name="Id" ColumnName="Analista_Id" />
+      </EndProperty>
+      <EndProperty Name="AvalAnalista">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ProjetoTarefa" TypeName="Model.ProjetoTarefa" StoreEntitySet="Tarefas">
+      <EndProperty Name="Projeto">
+        <ScalarProperty Name="Id" ColumnName="Projeto_Id" />
+      </EndProperty>
+      <EndProperty Name="Tarefa">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Gerente1Projeto" TypeName="Model.Gerente1Projeto" StoreEntitySet="Projetoes">
+      <EndProperty Name="Gerente1">
+        <ScalarProperty Name="Id" ColumnName="Gerente1_Id" />
+      </EndProperty>
+      <EndProperty Name="Projeto">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="Gerente1AvalAnalista" TypeName="Model.Gerente1AvalAnalista" StoreEntitySet="Avaliacaos_AvalAnalista">
+      <EndProperty Name="Gerente1">
+        <ScalarProperty Name="Id" ColumnName="Gerente1_Id" />
+      </EndProperty>
+      <EndProperty Name="AvalAnalista">
+        <ScalarProperty Name="Id" ColumnName="Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0523b8df93d846778d552924f34e389c" Name="Diagram1" ZoomLevel="88" >
+        <EntityTypeShape EntityType="Model.Usuario" PointX="11" PointY="0.75" Width="1.5" FillColor="192, 255, 255" />
+        <EntityTypeShape EntityType="Model.Administrador" PointX="7.875" PointY="3.625" Width="1.5" FillColor="0, 192, 192" />
+        <EntityTypeShape EntityType="Model.Analista" PointX="16.125" PointY="3.625" Width="1.5" FillColor="Aqua" />
+        <EntityTypeShape EntityType="Model.Tarefa" PointX="13.25" PointY="5.875" Width="1.5" FillColor="Salmon" />
+        <EntityTypeShape EntityType="Model.Competencia" PointX="15.5" PointY="8.375" Width="1.5" FillColor="Salmon" />
+        <EntityTypeShape EntityType="Model.Avaliacao" PointX="18.25" PointY="7" Width="1.5" FillColor="255, 255, 192" />
+        <EntityTypeShape EntityType="Model.AvalTarefa" PointX="13.25" PointY="9.25" Width="1.5" FillColor="255, 255, 128" />
+        <AssociationConnector Association="Model.TarefaCompetencia" />
+        <EntityTypeShape EntityType="Model.AvalAnalista" PointX="15.625" PointY="6" Width="1.5" FillColor="255, 255, 128" />
+        <AssociationConnector Association="Model.TarefaAvalTarefa" />
+        <AssociationConnector Association="Model.AnalistaCompetencia" />
+        <InheritanceConnector EntityType="Model.Administrador" />
+        <InheritanceConnector EntityType="Model.Analista" />
+        <AssociationConnector Association="Model.AnalistaAvalAnalista" />
+        <InheritanceConnector EntityType="Model.AvalAnalista" />
+        <InheritanceConnector EntityType="Model.AvalTarefa" />
+        <EntityTypeShape EntityType="Model.Projeto" PointX="11" PointY="6" Width="1.5" FillColor="Salmon" />
+        <AssociationConnector Association="Model.ProjetoTarefa" />
+        <EntityTypeShape EntityType="Model.Gerente" PointX="11" PointY="3.625" Width="1.5" FillColor="Aqua" />
+        <InheritanceConnector EntityType="Model.Gerente" />
+        <AssociationConnector Association="Model.Gerente1Projeto" />
+        <AssociationConnector Association="Model.Gerente1AvalAnalista" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
