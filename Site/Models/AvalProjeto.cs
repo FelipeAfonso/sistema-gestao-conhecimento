@@ -12,10 +12,10 @@ namespace Site.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class AvalTarefa : Avaliacao
+    public partial class AvalProjeto : Avaliacao
     {
     
-        public virtual Tarefa Tarefa { get; set; }
+        public virtual Projeto Projeto { get; set; }
         public virtual Analista Analista { get; set; }
     }
 }

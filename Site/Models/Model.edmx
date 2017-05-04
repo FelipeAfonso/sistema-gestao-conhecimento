@@ -340,6 +340,26 @@
             <End EntitySet="Usuarios" Role="Gerente1" />
             <End EntitySet="Avaliacaos" Role="AvalAnalista" />
           </AssociationSet>
+          <AssociationSet Name="ProjetoAvalProjeto" Association="Model.ProjetoAvalProjeto">
+            <End Role="Projeto" EntitySet="Projetoes" />
+            <End Role="AvalProjeto" EntitySet="Avaliacaos" />
+          </AssociationSet>
+          <AssociationSet Name="AnalistaAvalTarefa" Association="Model.AnalistaAvalTarefa">
+            <End Role="Analista" EntitySet="Usuarios" />
+            <End Role="AvalTarefa" EntitySet="Avaliacaos" />
+          </AssociationSet>
+          <AssociationSet Name="AnalistaAvalProjeto" Association="Model.AnalistaAvalProjeto">
+            <End Role="Analista" EntitySet="Usuarios" />
+            <End Role="AvalProjeto" EntitySet="Avaliacaos" />
+          </AssociationSet>
+          <AssociationSet Name="TarefaAnalista" Association="Model.TarefaAnalista">
+            <End Role="Tarefa" EntitySet="Tarefas" />
+            <End Role="Analista" EntitySet="Usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="AvalAnalistaTarefa" Association="Model.AvalAnalistaTarefa">
+            <End Role="AvalAnalista" EntitySet="Avaliacaos" />
+            <End Role="Tarefa" EntitySet="Tarefas" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Usuario" Abstract="true">
           <Key>
@@ -357,6 +377,9 @@
         <EntityType Name="Analista" BaseType="Model.Usuario">
           <NavigationProperty Name="Competencias" Relationship="Model.AnalistaCompetencia" FromRole="Analista" ToRole="Competencia" />
           <NavigationProperty Name="AvalAnalistas" Relationship="Model.AnalistaAvalAnalista" FromRole="Analista" ToRole="AvalAnalista" />
+          <NavigationProperty Name="AvalTarefas" Relationship="Model.AnalistaAvalTarefa" FromRole="Analista" ToRole="AvalTarefa" />
+          <NavigationProperty Name="AvalProjetoes" Relationship="Model.AnalistaAvalProjeto" FromRole="Analista" ToRole="AvalProjeto" />
+          <NavigationProperty Name="Tarefa" Relationship="Model.TarefaAnalista" FromRole="Analista" ToRole="Tarefa" />
         </EntityType>
         <EntityType Name="Tarefa">
           <Key>
@@ -370,6 +393,8 @@
           <Property Name="DataFim" Nullable="false" Type="DateTime" />
           <Property Name="Descricao" Nullable="false" Type="String" />
           <NavigationProperty Name="Projeto" Relationship="Model.ProjetoTarefa" FromRole="Tarefa" ToRole="Projeto" />
+          <NavigationProperty Name="Analistas" Relationship="Model.TarefaAnalista" FromRole="Tarefa" ToRole="Analista" />
+          <NavigationProperty Name="AvalAnalista" Relationship="Model.AvalAnalistaTarefa" FromRole="Tarefa" ToRole="AvalAnalista" />
         </EntityType>
         <EntityType Name="Competencia">
           <Key>
@@ -390,6 +415,7 @@
         </EntityType>
         <EntityType Name="AvalTarefa" BaseType="Model.Avaliacao">
           <NavigationProperty Name="Tarefa" Relationship="Model.TarefaAvalTarefa" FromRole="AvalTarefa" ToRole="Tarefa" />
+          <NavigationProperty Name="Analista" Relationship="Model.AnalistaAvalTarefa" FromRole="AvalTarefa" ToRole="Analista" />
         </EntityType>
         <Association Name="TarefaCompetencia">
           <End Type="Model.Tarefa" Multiplicity="0..1" Role="Tarefa" />
@@ -398,6 +424,7 @@
         <EntityType Name="AvalAnalista" BaseType="Model.Avaliacao">
           <NavigationProperty Name="Analista" Relationship="Model.AnalistaAvalAnalista" FromRole="AvalAnalista" ToRole="Analista" />
           <NavigationProperty Name="Gerente1" Relationship="Model.Gerente1AvalAnalista" FromRole="AvalAnalista" ToRole="Gerente1" />
+          <NavigationProperty Name="Tarefas" Relationship="Model.AvalAnalistaTarefa" FromRole="AvalAnalista" ToRole="Tarefa" />
         </EntityType>
         <Association Name="TarefaAvalTarefa">
           <End Type="Model.Tarefa" Multiplicity="1" Role="Tarefa" />
@@ -422,6 +449,7 @@
           <Property Name="Descricao" Nullable="false" Type="String" />
           <NavigationProperty Name="Tarefas" Relationship="Model.ProjetoTarefa" FromRole="Projeto" ToRole="Tarefa" />
           <NavigationProperty Name="Gerente1" Relationship="Model.Gerente1Projeto" FromRole="Projeto" ToRole="Gerente1" />
+          <NavigationProperty Name="AvalProjetoes" Relationship="Model.ProjetoAvalProjeto" FromRole="Projeto" ToRole="AvalProjeto" />
         </EntityType>
         <Association Name="ProjetoTarefa">
           <End Type="Model.Projeto" Multiplicity="1" Role="Projeto" />
@@ -438,6 +466,30 @@
         <Association Name="Gerente1AvalAnalista">
           <End Type="Model.Gerente" Multiplicity="1" Role="Gerente1" />
           <End Type="Model.AvalAnalista" Multiplicity="*" Role="AvalAnalista" />
+        </Association>
+        <EntityType Name="AvalProjeto" BaseType="Model.Avaliacao" >
+          <NavigationProperty Name="Projeto" Relationship="Model.ProjetoAvalProjeto" FromRole="AvalProjeto" ToRole="Projeto" />
+          <NavigationProperty Name="Analista" Relationship="Model.AnalistaAvalProjeto" FromRole="AvalProjeto" ToRole="Analista" />
+        </EntityType>
+        <Association Name="ProjetoAvalProjeto">
+          <End Type="Model.Projeto" Role="Projeto" Multiplicity="1" />
+          <End Type="Model.AvalProjeto" Role="AvalProjeto" Multiplicity="*" />
+        </Association>
+        <Association Name="AnalistaAvalTarefa">
+          <End Type="Model.Analista" Role="Analista" Multiplicity="1" />
+          <End Type="Model.AvalTarefa" Role="AvalTarefa" Multiplicity="*" />
+        </Association>
+        <Association Name="AnalistaAvalProjeto">
+          <End Type="Model.Analista" Role="Analista" Multiplicity="1" />
+          <End Type="Model.AvalProjeto" Role="AvalProjeto" Multiplicity="*" />
+        </Association>
+        <Association Name="TarefaAnalista">
+          <End Type="Model.Tarefa" Role="Tarefa" Multiplicity="*" />
+          <End Type="Model.Analista" Role="Analista" Multiplicity="1" />
+        </Association>
+        <Association Name="AvalAnalistaTarefa">
+          <End Type="Model.AvalAnalista" Role="AvalAnalista" Multiplicity="1" />
+          <End Type="Model.Tarefa" Role="Tarefa" Multiplicity="1" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>

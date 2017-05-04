@@ -32,5 +32,7 @@ namespace Site.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AvalTarefa> AvalTarefas { get; set; }
         public virtual Projeto Projeto { get; set; }
+        public virtual Analista Analistas { get; set; }
+        public virtual AvalAnalista AvalAnalista { get; set; }
     }
 }

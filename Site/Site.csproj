@@ -165,6 +165,9 @@
     <Compile Include="Models\Avaliacao.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\AvalProjeto.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\AvalTarefa.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

@@ -17,5 +17,6 @@ namespace Site.Models
     
         public virtual Analista Analista { get; set; }
         public virtual Gerente Gerente1 { get; set; }
+        public virtual Tarefa Tarefas { get; set; }
     }
 }

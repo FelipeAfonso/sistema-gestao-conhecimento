@@ -18,6 +18,7 @@ namespace Site.Models
         public Projeto()
         {
             this.Tarefas = new HashSet<Tarefa>();
+            this.AvalProjetoes = new HashSet<AvalProjeto>();
         }
     
         public int Id { get; set; }
@@ -29,5 +30,7 @@ namespace Site.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Tarefa> Tarefas { get; set; }
         public virtual Gerente Gerente1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AvalProjeto> AvalProjetoes { get; set; }
     }
 }

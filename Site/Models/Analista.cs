@@ -19,6 +19,9 @@ namespace Site.Models
         {
             this.Competencias = new HashSet<Competencia>();
             this.AvalAnalistas = new HashSet<AvalAnalista>();
+            this.AvalTarefas = new HashSet<AvalTarefa>();
+            this.AvalProjetoes = new HashSet<AvalProjeto>();
+            this.Tarefa = new HashSet<Tarefa>();
         }
     
     
@@ -26,5 +29,11 @@ namespace Site.Models
         public virtual ICollection<Competencia> Competencias { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<AvalAnalista> AvalAnalistas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AvalTarefa> AvalTarefas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AvalProjeto> AvalProjetoes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Tarefa> Tarefa { get; set; }
     }
 }
